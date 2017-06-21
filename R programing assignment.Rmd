@@ -1,0 +1,38 @@
+---
+title: "Assignment"
+author: "Gopal Nath"
+date: "June 21, 2017"
+output: html_document
+---
+
+#First Problem
+```{r}
+
+makeacheMatrix <- function(x = matrix()) {
+    inv <- NULL
+     set <- function(y){
+         x <<- y
+        inv <<- NULL
+    }
+    get <- function() x
+    setin <- function(solveMatrix) inv <<- solveMatrix
+   getin <- function() inv
+    list(set = set, get = get, setin = setinv, getinv = getinv)
+}
+```
+
+
+## 2nd Problem
+```{r}
+cachesolve <- function(x, ...) {
+    inv <- x$getinv()
+     if(!is.null(inv)){
+         message("Cached Data")
+         return(inv)
+     }
+     data <- x$get()
+    inv <- solve(data)
+     x$setinv(inv)
+    inv      
+ }
+```
