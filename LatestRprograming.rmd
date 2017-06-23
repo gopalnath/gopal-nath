@@ -1,0 +1,63 @@
+---
+title: "Assignment"
+author: "Gopal Nath"
+date: "June 21, 2017"
+output: html_document
+---
+
+#First Problem
+```{r}
+
+##Caching the Inverse of a Matrix:
+
+## Matrix inversion is usually a costly computation and there may be some  benefit to caching the inverse of a matrix rather than compute it repeatedly. Below are a pair of functions that are used to create a special object that  stores a matrix and caches its inverse.
+
+##For this assignment we assume that the matrix supplied is always invertible.
+
+mcm <- function(x = matrix()) {
+    i <- NULL
+  set <- function(y) {
+          x <<- y
+          i <<- NULL
+  }
+  get <- function() x
+  setinverse <- function(inverse) i <<- inverse
+  getinverse <- function() i
+  list(set = set,
+       get = get,
+       setinverse = setinverse,
+       getinverse = getinverse)
+}
+```
+
+
+## 2nd Problem
+```{r}
+## This function computes the inverse of the special "matrix" created by 
+## makeCacheMatrix above. If the inverse has already been calculated (and the 
+## matrix has not changed), then it should retrieve the inverse from the cache. Computing the inverse of a square matrix can be done with the solve function in R. For example, if X is a square invertible matrix, then solve(X) returns its inverse.
+
+cacheSolve <- function(x, ...) {
+  i <- x$getinverse()
+  if (!is.null(i)) {
+          message("cached data")
+          return(i)
+  }
+  data <- x$get()
+  i <- solve(data, ...)
+  x$setinverse(i)
+  i
+}
+```
+
+#Testing my function 
+##Code Explanation (Example)
+
+```{r}
+A<- matrix(c(5,6,7,8),2,2)
+B <- mcm(A)
+cacheSolve(B) #inverse returned after computation
+
+cacheSolve(B) #inverse returned from cache
+
+```
